@@ -1,33 +1,42 @@
 import {useState } from 'react'
+import {FaTrashAlt} from 'react-icons/fa'
 const Content = () => {
-  const [name, setName] = useState('Dave');
-  const [count, setCount] = useState(0)
-
-  const handleNameChange = () => {
-    const names = ["Bob", "Kevin", "Dave"];
-    const int = Math.floor(Math.random() * 3);
-    setName(names[int]);
-  };
-
-const handleClick = () =>{
-  setCount(count + 1)
-  setCount(count + 1)
-  console.log(count)
+  const [items, setItems] = useState([
+{
+  id:1,
+  checked: true,
+  item: "cosik cosik"
+},
+{
+  id:2,
+  checked: false,
+  item: "item2"
+},
+{
+  id:3,
+  checked: false,
+  item: "item3"
 }
-const handleClick2 = (name) =>{
- console.log(count)
-}
-
+  ]);
+ 
   return (
-    <div className="App">
-  
-        <p onDoubleClick={handleClick}>
-          Hello {name}!
-        </p>
-   <button onClick={handleNameChange}>Zmien imie</button>
-   <button onClick={handleClick}>Kliknij {name}</button>
-   <button onClick={handleClick2}>Kliknij sobie 2</button>
-    </div>
+   <main>
+<ul>
+  {items.map((item) => (
+    <li className="item" key={item.id}>
+      <input
+      type="checkbox"
+      checked={item.checked}
+      />
+<label>{item.item}</label>
+<FaTrashAlt role='button' tabIndex={0}>
+
+</FaTrashAlt>
+    </li>
+  )
+  )}
+</ul>
+   </main>
   );
 }
 
