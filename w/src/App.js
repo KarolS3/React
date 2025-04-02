@@ -12,7 +12,7 @@ function App() {
   const [newItem, setNewItem] = useState('');
   const [search, setSearch] = useState('');
   const [fetchError, setFetchError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -25,12 +25,14 @@ function App() {
         setFetchError(null);
       } catch (err){
           setFetchError(err.message);
+      }finally{
+        setIsLoading(false);
       }
     }
 
-    (async () => await fetchItems())();
+    setTimeout(() => fetchItems(), 2000);
 
-    // localStorage.setItem('shoppinglist', JSON.stringify(items));
+   
   }, [])
 
   const addItem = (item) => {
@@ -70,12 +72,13 @@ function App() {
         setSearch={setSearch}
       />
       <main>
+      {isLoading && <p>Loading Items...</p>}
         {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
-        <Content
+        {!fetchError && !isLoading && <Content
           items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))}
           handleCheck={handleCheck}
           handleDelete={handleDelete}
-        />
+        />}
       </main>
       <Footer length={items.length} />
     </div>
