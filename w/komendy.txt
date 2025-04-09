@@ -1,2 +1,3 @@
 npm start
 npx json-server -p 3500 -w data/db.json
+set NODE_OPTIONS=--openssl-legacy-provider
